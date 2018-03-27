@@ -29,35 +29,34 @@ def advancedGuessingGame():
     purpose if you can!
     """
     
-    print("\nWelcome to the guessing Game!")
-    print("A number between _ and 100 ?")
-    lowerBound = input("Enter a lower bound: ") 
-    print ("Ok then, a number between {0} and 100 ?".format(lowerBound))
-    lowerBound = int(lowerBound)
-    highbound = 100
-    actualNumber = random.randint(lowerBound, 100)
+  print("\nWelcome to the guessing Game!")
+  print("A number between _ and 100 ?")
+  lowerBound = input("Enter a lower bound: ") 
+  print ("Ok then, a number between {} and 100 ?".format(lowerBound))
+  lowerBound = int(lowerBound)
+  highbound = 100
+  actualNumber = random.randint(lowerBound, 100)
 
-    guessed = False
+  guessed = False
 
-    while not guessed:
-      try:
-        guessedNumber = int(input("guess a number:")) #this is now considered an integer due to int
-        print("you guessed {0},".format(guessedNumber))
-      except ValueError: #error will occur if guesser input a non integer within range
-        print("sorry, i will on process an integer, try again")
-        continue 
-      if (guessedNumber < lowerBound or guessedNumber > highbound):
-        print("That is not in range")
-      elif guessedNumber == actualNumber:
-        print("You got it! It was {}".format(actualNumber))
-        guessed = True
-      elif guessedNumber < actualNumber:
-        print("Too small, try again   ")
-      else:
-        print("Too big, Try again")
+  while not guessed:
+    try:
+      guessedNumber = int(input("guess a number:")) #this is now considered an integer due to int
+      print("you guessed {},".format(guessedNumber))
+    except Exception: #error will occur if guesser input a non integer within range
+      print("sorry, i will only process an integer, try again")
+      continue  
+    if (guessedNumber < lowerBound or guessedNumber > highbound):
+      print("That is not in range")
+    elif guessedNumber == actualNumber:
+      print("You got it! It was {}".format(actualNumber))
+      guessed = True
+    elif guessedNumber < actualNumber:
+      print("Too small, try again   ")
+    else:
+      print("Too big, Try again")
+  return ("You Got It!")
     
-    return ("You Got It!")
-      
       
 
 if __name__ == "__main__":

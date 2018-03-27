@@ -103,10 +103,10 @@ def not_number_rejector(message):
         try:
             guessed_Number = int(input("Enter a number:"))
             a_number = int(guessed_Number) # makes it an integer
-            return a_number
-        except ValueError: #if the guesser uses a non integer it will be an error and process to print next line
+            return a_number 
+        except Exception: #if the guesser uses a non integer it will be an error and process to print next line
             print("Sorry, that is not an integer, please try again")
-    return None
+
 
 
 
@@ -120,19 +120,18 @@ def super_asker(low, high):
     """
 
     message = "Give me a number between {low} and {high}:".format(low=low,high=high)
-    guessed_number = int(input(message))
     while True:
-        if low < guessed_number < high: #sets the condition 
-            print("{} is a number within the range".format(guessed_number))
-            return guessed_number
-        elif low > guessed_number > high:
-            print ("{} not in range, try again".format(guessed_number))
-        else:
-            try:
-                guessed_number = int(input(message))
-                print("you guessed {},".format(guessed_number),)
-            except ValueError: 
-                print("Sorry, that is not an integer, please try again")
+        try:
+            guessed_number = int(input(message))
+            print("you guessed {},".format(guessed_number))
+            if low < guessed_number < high: #sets the condition 
+                print("{} is a number within the range".format(guessed_number))
+                return guessed_number
+            else: 
+                print ("{} not in range, try again".format(guessed_number))
+        except Exception as e: 
+            print("Sorry, {} is not an integer, please try again".format(e))
+
 
     return "You got it"
 
@@ -152,7 +151,6 @@ if __name__ == "__main__":
     print("\nloop_ranger", loop_ranger(1, 10, 2))
     print("\nlone_ranger", lone_ranger(1, 10, 3))
     print("\ntwo_step_ranger", two_step_ranger(1, 10))
-    print("\ngene_krupa_range", gene_krupa_range(1, 20, 2, 5))
     print("\nstubborn_asker")
     stubborn_asker(30, 45)
     print("\nnot_number_rejector")
