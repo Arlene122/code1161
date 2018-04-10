@@ -28,7 +28,7 @@ def advancedGuessingGame():
     Remember to think modular. Try to keep your functions small and single
     purpose if you can!
     """
-    
+  
   print("\nWelcome to the guessing Game!")
   print("A number between _ and 100 ?")
   lowerBound = input("Enter a lower bound: ") 

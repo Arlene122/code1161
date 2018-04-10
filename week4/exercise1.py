@@ -37,10 +37,11 @@ def get_some_details():
     json_data = open(LOCAL + "/lazyduck.json").read()
 
     data = json.loads(json_data)
-    return {"lastName":       None,
-            "password":       None,
-            "postcodePlusID": None
+    return {"lastName":       data["results"][0]["name"]["last"],
+            "password":       data["results"][0]["login"]["password"],
+            "postcodePlusID": data["results"][0]["location"]["postcode"] +int( data["results"][0]["id"]["value"])
             }
+        
 
 
 
@@ -79,7 +80,21 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &minLength=
     """
-    pass
+    
+    url = "http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength=10&maxLength="
+    a_list = []
+    for y in range (20): #creates the loop
+        url1 = url + str(y) +"10&limit=1"
+        a_list.append(url)
+    for x in range (0,y-1):
+        url1 = url + str(x) +"10&limit=1"
+    for a in range (0,y+1):
+        url1 = url + str(x) +"10&limit=1"
+    r = requests.get(url)
+    response = r.text
+    response_json = json.loads(response)
+    return response_json[0]["word"]
+            
 
 
 def wunderground():
@@ -122,7 +137,19 @@ def diarist():
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
          the test will have nothing to look at.
     """
-    pass
+    Myfile = open("./Trispokedovetiles(laser).gcode", "r") #r is to read the file
+    answerfile = open("./lasers.pew", "w") #w is to write in the file
+    counter = 0
+    for reader in Myfile.readlines():
+        if "M10 P1" in reader:
+            counter += 1
+    answerfile.write(str(counter))
+    Myfile.close()
+    answerfile.close()
+
+            
+            
+
 
 
 if __name__ == "__main__":
