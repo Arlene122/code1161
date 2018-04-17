@@ -81,19 +81,16 @@ def wordy_pyramid():
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &minLength=
     """
     
-    url = "http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength=10&maxLength="
-    a_list = []
-    for y in range (20): #creates the loop
-        url1 = url + str(y) +"10&limit=1"
-        a_list.append(url)
-    for x in range (0,y-1):
-        url1 = url + str(x) +"10&limit=1"
-    for a in range (0,y+1):
-        url1 = url + str(x) +"10&limit=1"
-    r = requests.get(url)
-    response = r.text
-    response_json = json.loads(response)
-    return response_json[0]["word"]
+    pyramid1 = []
+    pyramid2 = []
+    url = "http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength={}&maxLength={}&limit=1"
+    for length in range(3, 21):
+        if length % 2 == 1:
+            pyramid1.append(requests.get(url.format(length, length)).json()[0]['word'])
+        else:
+            pyramid2 = [requests.get(url.format(length, length)).json()[0]['word']] + pyramid2
+
+    return pyramid1 + pyramid2
             
 
 
@@ -118,10 +115,13 @@ def wunderground():
     the_json = json.loads(r.text)
     obs = the_json['current_observation']
 
-    return {"state":           None,
-            "latitude":        None,
-            "longitude":       None,
-            "local_tz_offset": None}
+    dict1 = {"state":           obs["display_location"]["state"],
+             "latitude":        obs["display_location"]["latitude"],
+             "longitude":       obs["display_location"]["longitude"],
+             "local_tz_offset": obs["local_tz_offset"]}
+    print(str(dict1))
+
+    return dict1
 
 
 def diarist():
